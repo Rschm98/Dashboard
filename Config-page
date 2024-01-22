@@ -1,4 +1,3 @@
-<script>
 $(document).ready(function() {
     // Initially check "Checkbox-None" and hide all "NotificationWrap" divs
     $('#Checkbox-None').prop('checked', true);
@@ -37,11 +36,7 @@ $(document).ready(function() {
         }
     });
 });
-</script>
 
-
-
-    <script>
          $(document).ready(function () {
             // Configuration for form behavior
             var FORM_SELECTOR = ".form_form";  // Selector for your form
@@ -229,12 +224,11 @@ $(document).ready(function() {
         
         
         
-    </script>
+
     
     
-    
-    <!-- Turn in Config Calls Form-->
-<script>
+ // Turn in Config Calls Form
+
 $(document).ready(function() {
     // Selector for the 'Config Calls' form
     var formSelector = '#Config-1';
@@ -254,5 +248,5 @@ $(document).ready(function() {
         
         });
 });
-</script>
+
 
