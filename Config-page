@@ -1,45 +1,6 @@
-$(document).ready(function() {
-    // Initially check "Checkbox-None" and hide all "NotificationWrap" divs
-    $('#Checkbox-None').prop('checked', true);
-    $('.NotificationWrap').hide();
-
-    // Event handler for "Checkbox-None"
-    $('#Checkbox-None').change(function() {
-        if ($(this).is(':checked')) {
-            $('.Notifications').not(this).prop('checked', false); // Uncheck all other checkboxes
-            $('.NotificationWrap').hide(); // Hide all NotificationWrap divs
-        }
-    });
-
-    // Event handler for other checkboxes
-    $('.Notifications').not('#Checkbox-None').change(function() {
-        var checkboxId = $(this).attr('id');
-        var divId = '';
-
-        switch(checkboxId) {
-            case 'Checkbox-WA-Chat':
-                divId = '#Div-WA-Chat';
-                break;
-            case 'Checkbox-WA-Group':
-                divId = '#Div-WA-Group';
-                break;
-            case 'Checkbox-Slack':
-                divId = '#Div-Slack';
-                break;
-        }
-
-        if ($(this).is(':checked')) {
-            $(divId).show();
-            $('#Checkbox-None').prop('checked', false); // Uncheck "Checkbox-None"
-        } else {
-            $(divId).hide();
-        }
-    });
-});
-
-         $(document).ready(function () {
+ $(document).ready(function () {
             // Configuration for form behavior
-            var FORM_SELECTOR = ".form_form";  // Selector for your form
+            var FORM_SELECTORS = [".form_form", ".form_form2", ".form_form3"];  
             var HIDE_SUCCESS_MESSAGE = false;  // Set to true to hide the success message
             var SUCCESS_MESSAGE_ABOVE_FORM = true;  // Set to true to show success message above form
 
@@ -53,24 +14,27 @@ $(document).ready(function() {
             "dynamic-fifth-option"];  // Prefixes of IDs for dynamic fields
 
             // Initialize form behavior
-            function initializeFormBehavior() {
-                var form = $(FORM_SELECTOR);
-                var successDiv = form.next();
+    // Modified Initialize form behavior to handle multiple forms
+    function initializeFormBehavior() {
+        FORM_SELECTORS.forEach(function(selector) {
+            var form = $(selector);
+            var successDiv = form.next();
 
-                if (!HIDE_SUCCESS_MESSAGE && SUCCESS_MESSAGE_ABOVE_FORM) {
-                    form.parent().append(form);
-                }
-
-                var observer = new MutationObserver(function (mutations) {
-                    mutations.forEach(function (mutation) {
-                        if (mutation.attributeName === "style" && form.css("display") === "none") {
-                            form.css("display", "block");
-                            successDiv.css("display", HIDE_SUCCESS_MESSAGE ? "none" : "block");
-                        }
-                    });
-                });
-                observer.observe(form[0], { attributes: true, attributeFilter: ["style"] });
+            if (!HIDE_SUCCESS_MESSAGE && SUCCESS_MESSAGE_ABOVE_FORM) {
+                form.parent().append(form);
             }
+
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.attributeName === "style" && form.css("display") === "none") {
+                        form.css("display", "block");
+                        successDiv.css("display", HIDE_SUCCESS_MESSAGE ? "none" : "block");
+                    }
+                });
+            });
+            observer.observe(form[0], { attributes: true, attributeFilter: ["style"] });
+        });
+    }
 
             // Save input values to localStorage
             function saveInputValue(event) {
@@ -226,21 +190,23 @@ $(document).ready(function() {
         
 
     
-    
- // Turn in Config Calls Form
-
+//Turn in Config Calls Form
 $(document).ready(function() {
     // Selector for the 'Config Calls' form
     var formSelector = '#Config-1';
-    var formSelector2 = '#Config-2';
-
     $(formSelector).submit(function(event) {
         // After form submission
         $('.call-progress').addClass('is-complete');
         $('#Tab-Link-2').trigger('click');
      
     });
-    
+   
+});
+
+$(document).ready(function() {
+    // Selector for the 'Config Calls' form
+    var formSelector2 = '#Config-2';
+
      $(formSelector2).submit(function(event) {
         // After form submission
         $('.date-progress').addClass('is-complete');
@@ -250,3 +216,12 @@ $(document).ready(function() {
 });
 
 
+ // Placeholder 
+  window.onload = function() {
+    document.querySelectorAll('input').forEach(function(input) {
+      var dataPlaceholder = input.getAttribute('data-placeholder');
+      if (dataPlaceholder) {
+        input.placeholder = dataPlaceholder;
+      }
+    });
+  };
